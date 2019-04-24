@@ -1,8 +1,7 @@
 package com.yunhui.bean;
 
-import lombok.Data;
-
 import java.util.Date;
+import lombok.Data;
 
 @Data
 public class Uid {
@@ -13,13 +12,5 @@ public class Uid {
 
     private Integer port;
 
-    /**
-	* 业务id
-	*/
-    private Integer bizId;
-
-    private Date createTime;
-
     private Date updateTime;
-
 }

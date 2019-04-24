@@ -13,6 +13,25 @@ public class UidDAO {
     @Autowired
     UidMapper mapper;
 
+    public Uid selectUid(String ip,Integer port){
+        try {
+            return mapper.selectUid(ip,port);
+        } catch (Exception e) {
+            log.error("selectUid exception", e);
+            throw new RuntimeException("selectUid exception",e);
+        }
+    }
+
+
+    public int replaceInto(String ip,Integer port){
+        try {
+            return mapper.replaceInto(ip,port);
+        } catch (Exception e) {
+            log.error("replaceInto exception", e);
+            throw new RuntimeException("replaceInto exception",e);
+        }
+    }
+
     public int addUid(Uid record){
         try {
             return mapper.insertSelective(record);

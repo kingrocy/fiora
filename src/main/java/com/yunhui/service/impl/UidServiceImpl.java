@@ -15,7 +15,7 @@ public class UidServiceImpl implements UidService {
 
     @Override
     public Uid updateAndGetUid(AbstractBaseConfig config) {
-        uidDAO.replaceInto(config.getIp(),config.setPort());
+        uidDAO.replaceInto(config.getIp(),config.getPort());
         return uidDAO.selectUid(config.getIp(),config.getPort());
     }
 }

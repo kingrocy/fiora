@@ -3,12 +3,16 @@ package com.yunhui.core;
 import com.yunhui.bean.Uid;
 import com.yunhui.config.AbstractBaseConfig;
 import com.yunhui.service.UidService;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 @Component
+@Getter
+@Slf4j
 public class AtomicUid {
 
     @Autowired
@@ -17,28 +21,39 @@ public class AtomicUid {
     @Autowired
     AbstractBaseConfig config;
 
-    private AtomicLong uidCache=new AtomicLong();
+    private AtomicLong uidCache = new AtomicLong();
     private long maxId;
 
-    private static final int multiple=10;
+    private static final int multiple = 100;
 
 
-    public AtomicUid (){}
-
-    public void init(long id){
-        uidCache.set(id*multiple);
-        maxId=(id+1)*multiple;
+    public AtomicUid() {
     }
 
-    public long get(){
-        long id = uidCache.incrementAndGet();
-        if(id<=maxId){
-            return id;
-        }
-        //第一个线程从db取号
+    private void init(long id) {
+        uidCache.set(id * multiple);
+        maxId = (id + 1) * multiple;
+    }
+
+    public void init(AbstractBaseConfig config) {
         Uid uid = uidService.updateAndGetUid(config);
         //更新缓存
         init(uid.getId());
-        return get();
+    }
+
+
+    public long get() {
+        for (; ; ) {
+            long id = uidCache.incrementAndGet();
+            if (id <= maxId) {
+                return id;
+            }
+            //第一个线程从db取号
+            synchronized (this) {
+                if (uidCache.get() >= maxId) {
+                    init(config);
+                }
+            }
+        }
     }
 }

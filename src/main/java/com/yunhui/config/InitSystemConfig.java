@@ -12,7 +12,6 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Title: InitSystemConfig.java <br>
  * Description: <br>
- * Copyright (c) 聚阿网络科技版权所有 2019 <br>
  * Create DateTime: 2019年04月24日 14:53 <br>
  *
  * @author yun

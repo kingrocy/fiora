@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Title: CoreController.java <br>
  * Description: <br>
- * Copyright (c) 聚阿网络科技版权所有 2019 <br>
  * Create DateTime: 2019年04月25日 10:08 <br>
- *
  * @author yun
  */
 @RestController

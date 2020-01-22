@@ -29,3 +29,5 @@ logs/
 *.rar
 
 **/target
+
+.idea

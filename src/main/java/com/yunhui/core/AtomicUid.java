@@ -22,9 +22,9 @@ public class AtomicUid {
     AbstractBaseConfig config;
 
     private AtomicLong uidCache = new AtomicLong();
-    private long maxId;
+    private volatile long maxId;
 
-    private static final int multiple = 100;
+    private static final int multiple = 10;
 
 
     public AtomicUid() {

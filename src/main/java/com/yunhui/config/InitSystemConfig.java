@@ -1,13 +1,13 @@
 package com.yunhui.config;
 
-import com.yunhui.core.AtomicUid;
+import com.yunhui.core.uid.PreAsyReloadAtomicUidImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
 import java.net.InetAddress;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Title: InitSystemConfig.java <br>
@@ -28,19 +28,19 @@ public class InitSystemConfig implements CommandLineRunner {
     AbstractBaseConfig abstractBaseConfig;
 
     @Autowired
-    AtomicUid atomicUid;
+    PreAsyReloadAtomicUidImpl atomicUid;
 
     @Override
     public void run(String... args) throws Exception {
         String ip = InetAddress.getLocalHost().getHostAddress();
-        int port=appProperties.getPort();
+        int port = appProperties.getPort();
         abstractBaseConfig.setIp(ip);
         abstractBaseConfig.setPort(port);
-        log.info("init abstractBaseConfig:"+abstractBaseConfig);
+        log.info("init abstractBaseConfig:" + abstractBaseConfig);
 
         //初始化AtomicUid
-        atomicUid.init(abstractBaseConfig);
-        log.info("init atomicUid:[{},{}]",atomicUid.getUidCache(),atomicUid.getMaxId());
+//        atomicUid.init(abstractBaseConfig);
+//        log.info("init atomicUid:[{},{}]",atomicUid.getUidCache(),atomicUid.getMaxId());
 
     }
 

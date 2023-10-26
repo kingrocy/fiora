@@ -1,6 +1,6 @@
 package com.yunhui.controller;
 
-import com.yunhui.core.AtomicUid;
+import com.yunhui.core.uid.PreAsyReloadAtomicUidImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Title: CoreController.java <br>
  * Description: <br>
  * Create DateTime: 2019年04月25日 10:08 <br>
+ *
  * @author yun
  */
 @RestController
@@ -19,13 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class CoreController {
 
     @Autowired
-    AtomicUid atomicUid;
+    PreAsyReloadAtomicUidImpl atomicUid;
 
 
     @GetMapping("uid")
-    public Long uid(){
-        long id = atomicUid.get();
-        log.info("id:"+id);
+    public Long uid() {
+        long id = atomicUid.getUid();
+        log.info("id:" + id);
         return id;
     }
 
